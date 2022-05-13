@@ -3,6 +3,7 @@ using MicroRabbit.Banking.Application.Interfaces;
 using MicroRabbit.Banking.Application.Services;
 using MicroRabbit.Banking.Data.Context;
 using MicroRabbit.Banking.Data.Repository;
+using MicroRabbit.Banking.Domain.Commands;
 using MicroRabbit.Banking.Domain.Interfaces;
 using MicroRabbit.Infra.Bus;
 using MicroRabbit.Infra.IOC;
@@ -22,6 +23,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using MediatR;
+using MicroRabbit.Banking.Domain.CommandHandler;
 
 namespace MicroRabbit.Banking.Api
 {
@@ -42,6 +45,9 @@ namespace MicroRabbit.Banking.Api
 
             //Domain Bus
             services.AddTransient<IEventBus, RabbitMQBus>();
+
+            //Domain Command
+            services.AddTransient<IRequestHandler<CreateTransferCommand,bool>,TransferCommandHandler>();
 
             //Application Service
 
